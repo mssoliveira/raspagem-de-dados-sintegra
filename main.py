@@ -31,6 +31,12 @@ print(html_content)
 
 
 #Tratar dados recebidos
+soup = BeautifulSoup(html_content, 'html.parser')
+table = soup.find(name='table')
+
+#estruturando conteudo recebido em um data frame
+df_full = pd.read_html( str(table) )[0].head(10)
+df = df_full['Unnamed: 0']
 
 
 
