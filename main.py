@@ -28,22 +28,17 @@ driver.get(url)
 #fazendo consulta dos dados
 dados(driver, consulta_cnpj)
 
-
-
-
-#element = driver.find_element_by_xpath("table")
-#html_content = element.get_attribute("outerHTML")
-
-#print(html_content)
-
+element = driver.find_element_by_xpath("//body")
+html_content = element.get_attribute("outerHTML")
 
 #Tratar dados recebidos
-#soup = BeautifulSoup(html_content, 'html.parser')
-#table = soup.find(name='table')
+soup = BeautifulSoup(html_content, 'html.parser')
+table = soup.find(name='table')
 
 #estruturando conteudo recebido em um data frame
-#df_full = pd.read_html( str(table) )[0].head(10)
-#df = df_full['Unnamed: 0']
+df_full = pd.read_html( str(table) )[0].head(10)
+
+print(df_full)
 
 
 
@@ -51,5 +46,6 @@ dados(driver, consulta_cnpj)
 
 
 
-#driver.quit()
 
+#fecha o navegador 
+driver.quit()
