@@ -39,18 +39,23 @@ soup = BeautifulSoup(html_content, 'html.parser')
 table_dados_empresa = soup.find_all(id="Table6")
 #Tabela das Informações Complementares
 table_complementares = soup.find_all(id="Table7")
-
 #estruturando conteudo recebido em um data frame
 #1. consultando dados no cnpj
 dados_empresa = pd.read_html(str(table_dados_empresa))[0].head(3)
 #2. consultando dados no cnpj
 dados_complementares = pd.read_html(str(table_complementares))[0].head(10)
 #3. examinando dados 
-
-
-
-print(dados_empresa)
-print(dados_complementares)
-
+salvar_01 = dados_empresa.to_dict('records')
+salvar_02 = dados_complementares.to_dict('records')
 #fecha o navegador 
 driver.quit()
+
+js = json.dumps(salvar_01, ensure_ascii=False)
+fp = open('dadosempresa.json', 'w', encoding='utf-8')
+fp.write(js)
+fp.close()
+
+js2 = json.dumps(salvar_02, ensure_ascii=False)
+fp2 = open('dadoscomplementares.json', 'w', encoding='utf-8')
+fp2.write(js2)
+fp2.close()
