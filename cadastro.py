@@ -8,15 +8,16 @@ import os
 import json
 
 # Pegar conteudo do HTML
-url = "http://www.sefaz.ba.gov.br/Sintegra/sintegra.asp?estado=BA"
+url = "https://www.sefaz.ba.gov.br/scripts/cadastro/cadastroBa/consultaBa.asp"
 consulta_cnpj = '06859330000113'
 
 #funcão de adicionar os dados e consultar
 def dados(navegador, cnpj):
-    input = navegador.find_element_by_xpath("//html//body//form//table//tbody//tr//td//input")
-    input.send_keys(cnpj) 
-    consulta = navegador.find_element_by_name("Submit")
+    input = navegador.find_element_by_name("CGC")
+    input.send_keys(cnpj)     
+    consulta = navegador.find_element_by_name("B1")
     consulta.click()  
+     
 
 # Instancia o Chorme e abre
 chrome_options = Options()
@@ -34,12 +35,22 @@ html_content = element.get_attribute("outerHTML")
 
 #Tratar dados recebidos
 soup = BeautifulSoup(html_content, 'html.parser')
-table = soup.find_all(name='table')
+#Tabela dos Dados da Empresa
+table_dados_empresa = soup.find_all(id="Table6")
+#Tabela das Informações Complementares
+table_complementares = soup.find_all(id="Table7")
 
 #estruturando conteudo recebido em um data frame
-df_full = pd.read_html(str(table), header=0)
+#1. consultando dados no cnpj
+dados_empresa = pd.read_html(str(table_dados_empresa))[0].head(3)
+#2. consultando dados no cnpj
+dados_complementares = pd.read_html(str(table_complementares))[0].head(10)
+#3. examinando dados 
 
-print(df_full)
+
+
+print(dados_empresa)
+print(dados_complementares)
 
 #fecha o navegador 
 driver.quit()
