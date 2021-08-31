@@ -33,10 +33,12 @@ html_content = element.get_attribute("outerHTML")
 
 #Tratar dados recebidos
 soup = BeautifulSoup(html_content, 'html.parser')
-table = soup.find(name='table')
+table = soup.find_all(name='table')
 
 #estruturando conteudo recebido em um data frame
-df_full = pd.read_html( str(table) )[0].head(10)
+df_full = pd.read_html(str(table), header=0)
+
+
 
 print(df_full)
 
