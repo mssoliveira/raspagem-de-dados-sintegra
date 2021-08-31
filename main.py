@@ -8,8 +8,15 @@ import os
 import json
 
 # Pegar conteudo do HTML
-
 url = "http://www.sefaz.ba.gov.br/Sintegra/sintegra.asp?estado=BA"
+consulta_cnpj = '06859330000113'
+
+#funcão de adicionar os dados e consultar
+def dados(navegador, cnpj):
+    input = navegador.find_element_by_xpath("//html//body//form//table//tbody//tr//td//input")
+    input.send_keys(cnpj) 
+    consulta = navegador.find_element_by_name("Submit")
+    consulta.click()  
 
 # Instancia o Chorme e abre
 chrome_options = Options()
@@ -18,25 +25,25 @@ chrome_options.add_argument('--lang=pr-BR')
 chrome_options.add_argument('--disable-notifications')
 driver = webdriver.Chrome(executable_path=os.getcwd() + os.sep + 'chromedriver.exe', options=chrome_options)
 driver.get(url)
-time.sleep(10)
+#fazendo consulta dos dados
+dados(driver, consulta_cnpj)
 
 
-driver.find_element_by_xpath(
-    ""
-)
-element = driver.find_element_by_xpath("table")
-html_content = element.get_attribute("outerHTML")
 
-print(html_content)
+
+#element = driver.find_element_by_xpath("table")
+#html_content = element.get_attribute("outerHTML")
+
+#print(html_content)
 
 
 #Tratar dados recebidos
-soup = BeautifulSoup(html_content, 'html.parser')
-table = soup.find(name='table')
+#soup = BeautifulSoup(html_content, 'html.parser')
+#table = soup.find(name='table')
 
 #estruturando conteudo recebido em um data frame
-df_full = pd.read_html( str(table) )[0].head(10)
-df = df_full['Unnamed: 0']
+#df_full = pd.read_html( str(table) )[0].head(10)
+#df = df_full['Unnamed: 0']
 
 
 
@@ -44,5 +51,5 @@ df = df_full['Unnamed: 0']
 
 
 
-driver.quit()
+#driver.quit()
 
