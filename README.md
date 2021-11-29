@@ -1,4 +1,4 @@
-<p align="center"><a href="https://mauriciosouza.com.br" target="_blank"><img src="https://mauriciosouza.com.br/assets/img/logo.png" width="400"></a></p>
+<p align="center"><a href="https://mauriciosouza.com.br" target="_blank"><img src="https://mauriciosouza.com.br/wp-content/uploads/2021/11/icon.png" width="200"></a></p>
 
 <p align="center">
   <a href="https://twitter.com/intent/follow?screen_name=mauricinsouza">
